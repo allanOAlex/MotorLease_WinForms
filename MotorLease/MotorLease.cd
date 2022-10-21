@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MotorLease.Program" Collapsed="true">
+    <Position X="14.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAADAAAAEA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Client.Forms.BookingForm" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEBRAAABCAAABQQATCQAAADgBAABABQAAABAAQEAAA=</HashCode>
+      <FileName>Client\Forms\BookingForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Client.Forms.EditBookingForm" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Forms\EditBookingForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Client.Forms.LandingPage" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BYACgCERBCAAEBAQGgCCQAwXkBEIQAAAAAAAIQAAIkA=</HashCode>
+      <FileName>Client\Forms\LandingPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Client.Forms.Login" Collapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAwAAAAAACAAAGGCQACDAAQCAAAAAgAACBAAAABAAAA=</HashCode>
+      <FileName>Client\Forms\Login.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Client.Forms.ManageBookings" Collapsed="true">
+    <Position X="18" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQACAAQAACAREAQQABCCAAACkAAAQAAACAgAAYEQAAA=</HashCode>
+      <FileName>Client\Forms\ManageBookings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Client.Forms.ManageUsers" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQBCQBAgACAAGACAAACCAAACAAAAQBAAAAIAIQAAAAQ=</HashCode>
+      <FileName>Client\Forms\ManageUsers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Client.Forms.MyBookings" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQgAAEJAACABIBASAwCSAAAjlAAAQACkQAAAEQQEAAA=</HashCode>
+      <FileName>Client\Forms\MyBookings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Client.Forms.Register" Collapsed="true">
+    <Position X="16.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEUAGAABAjJAACCAAAKwAACDgCAAAwAACUAAAABBAMA=</HashCode>
+      <FileName>Client\Forms\Register.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Client.UserControls.BookingUserControl" Collapsed="true">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAACAAAAACABCBAABCAAAIBAAQAAAAIAAAAAA=</HashCode>
+      <FileName>Client\UserControls\BookingUserControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Context.DBContext" Collapsed="true">
+    <Position X="18" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAGAIAQAgAAIAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Data\Context\DBContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.BookingGridRequest" Collapsed="true">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAJAAAAEAAA=</HashCode>
+      <FileName>Data\Dtos\BookingGridRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.BookingGridResponse" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAJAAAAEAAA=</HashCode>
+      <FileName>Data\Dtos\BookingGridResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.BookingRequest" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAACAAAAgAAAAAABAAAAAAAAAEAAA=</HashCode>
+      <FileName>Data\Dtos\BookingRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.BookingResponse" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAABAAAAAAAAAEAAA=</HashCode>
+      <FileName>Data\Dtos\BookingResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.EditBookingRequest" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAEAAA=</HashCode>
+      <FileName>Data\Dtos\EditBookingRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.LoginRequest" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Dtos\LoginRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.LoginResponse" Collapsed="true">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAAAQAAAAAACAAAAAACAAAAIAAAAAA=</HashCode>
+      <FileName>Data\Dtos\LoginResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.MotorModelGridResposne" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAgAAAAAAAAAAAAAAAAABAAAAAAgAAEAAA=</HashCode>
+      <FileName>Data\Dtos\MotorModelGridResposne.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.MotorModelRequest" Collapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAACQAgAAAAAAAAAAAAAAAEAAAAAAAAAAAEEAA=</HashCode>
+      <FileName>Data\Dtos\MotorModelRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.MotorModelResponse" Collapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAACQAgAAAAAAAAAAAAAAAEAAAAAAAAAAAEEAA=</HashCode>
+      <FileName>Data\Dtos\MotorModelResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.MyBookingsGridResponse" Collapsed="true">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAgAAAIAAAA=</HashCode>
+      <FileName>Data\Dtos\MyBookingsGridResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.RegistrationRequest" Collapsed="true">
+    <Position X="18" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAQAAQAAAAAAAAAACAAAAAABAAAg=</HashCode>
+      <FileName>Data\Dtos\RegistrationRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.RegistrationResponse" Collapsed="true">
+    <Position X="7.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAQAAAAAAAAAACAAAAAABAAAg=</HashCode>
+      <FileName>Data\Dtos\RegistrationResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Dtos.UserGridResponse" Collapsed="true">
+    <Position X="14.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAQAAAAAAAAAACAAAAAABAAAg=</HashCode>
+      <FileName>Data\Dtos\UserGridResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Interfaces.BaseRepository&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAEAAAAAAQAAAAAAEAAEAACAAAAAAAAAA=</HashCode>
+      <FileName>Data\Interfaces\BaseRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MotorLease.Data.Interfaces.BookingRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQCAAAABAAAEACAAQAYAAAAAAEAAEAAAAAAAAQAAAA=</HashCode>
+      <FileName>Data\Interfaces\BookingRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MotorLease.Data.Interfaces.MotorRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAEAAAAAAQAAAAAAEAAEAAAgABAAAAAAA=</HashCode>
+      <FileName>Data\Interfaces\MotorRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MotorLease.Data.Interfaces.UnitOfWork" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAASACIAACAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Interfaces\UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MotorLease.Data.Interfaces.UserRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAQAAEAAAAAAQAAAAAQEAAEAACAAAAAAAAAA=</HashCode>
+      <FileName>Data\Interfaces\UserRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MotorLease.Data.Mapping.Automapping" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Mapping\Automapping.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Data.Services.BookingService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAIAACAAQAIAACAAAAAAAAAAABAAAQIAAA=</HashCode>
+      <FileName>Data\Services\BookingService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MotorLease.Data.Services.MotorService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAAAAAAAIAAAAAAQAAACAAAAAAAAAAAABAAQAAgA=</HashCode>
+      <FileName>Data\Services\MotorService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MotorLease.Data.Services.UserService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAEIAQAIAAAEAAAAAACAAQAAAAAACAAAAAEAAAA=</HashCode>
+      <FileName>Data\Services\UserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MotorLease.Domain.Models.ApplicationInfo" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEEAAQAAIAAEIASAAACgACAAAABACAAAAIAAEAAA=</HashCode>
+      <FileName>Domain\Models\ApplicationInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Domain.Models.Booking" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQADAAAAAAAAAIAAACABACgAAAAAABAAAAIAIAAGIAA=</HashCode>
+      <FileName>Domain\Models\Booking.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Domain.Models.MotorMake" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Models\MotorMake.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Domain.Models.MotorModel" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAACQBgAAAAEAAAACAAAAAEAAAAAAgAgIAEEAA=</HashCode>
+      <FileName>Domain\Models\MotorModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Domain.Models.MotorType" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Models\MotorType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Domain.Models.Review" Collapsed="true">
+    <Position X="9.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAIAAAAAAAAAAAAAABAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Domain\Models\Review.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Domain.Models.User" Collapsed="true">
+    <Position X="12.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAAAQAAQAAACAAAAAACAAAAAABAAAg=</HashCode>
+      <FileName>Domain\Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorLease.Methods.AppExtension" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Methods\AppExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="MotorLease.Domain.Interfaces.IBaseRepository&lt;T&gt;" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAEAAAAAAQAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Interfaces\IBaseRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MotorLease.Domain.Interfaces.IBookingRepository" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAABAAAAACAAQAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Interfaces\IBookingRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MotorLease.Domain.Interfaces.IMotorRepository" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgABAAAAAAA=</HashCode>
+      <FileName>Domain\Interfaces\IMotorRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MotorLease.Domain.Interfaces.IUnitOfWork" Collapsed="true">
+    <Position X="11" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQACIAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Interfaces\IUnitOfWork.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MotorLease.Domain.Interfaces.IUserRepository" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Interfaces\IUserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MotorLease.Domain.Services.IBookingService" Collapsed="true">
+    <Position X="7.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAQAIAAAAAAAAAAAAAABAAAQIAAA=</HashCode>
+      <FileName>Domain\Services\IBookingService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MotorLease.Domain.Services.IMotorService" Collapsed="true">
+    <Position X="9.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAABAAQAAgA=</HashCode>
+      <FileName>Domain\Services\IMotorService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MotorLease.Domain.Services.IUserService" Collapsed="true">
+    <Position X="12.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAIAQAAAAAAAAAAAAAAAQAAAAAACAAAAAEAAAA=</HashCode>
+      <FileName>Domain\Services\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
