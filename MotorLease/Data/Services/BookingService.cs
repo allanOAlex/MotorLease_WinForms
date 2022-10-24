@@ -194,6 +194,9 @@ namespace MotorLease.Data.Services
             try
             {
                 entity.UpdatedBy = ApplicationInfo.UserId;
+
+                //Map the Dto (BookingGridResponse) to the Class (Booking)
+                
                 var request = new MapperConfiguration(cfg => cfg.CreateMap<BookingGridRequest, Booking>());
                 var response = new MapperConfiguration(cfg => cfg.CreateMap<Booking, BookingGridResponse>());
 
@@ -201,7 +204,6 @@ namespace MotorLease.Data.Services
                 IMapper responseMap = response.CreateMapper();
 
                 var destination = requestMap.Map<BookingGridRequest, Booking>(entity);
-                //Booking bookingToEdit = unitOfWork.Bookings.EditBooking(destination);
                 Booking bookingToEdit = unitOfWork.Bookings.UpdateBooking(destination);
                 var result = responseMap.Map<Booking, BookingGridResponse>(bookingToEdit);
                 if (result != null)

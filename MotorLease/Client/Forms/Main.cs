@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MotorLease.Methods;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,6 +20,7 @@ namespace MotorLease.Client.Forms
 
         private void Main_Load(object sender, EventArgs e)
         {
+            AppExtension.CompleteAsync();
         }
 
         private void Login(object sender, LinkLabelLinkClickedEventArgs e)
@@ -28,6 +30,5 @@ namespace MotorLease.Client.Forms
             //Hide();
         }
 
-        
     }
 }

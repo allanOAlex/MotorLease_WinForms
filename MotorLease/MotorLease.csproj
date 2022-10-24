@@ -40,8 +40,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Tests\Auth\" />
-    <Folder Include="Tests\Booking\" />
   </ItemGroup>
 
 </Project>

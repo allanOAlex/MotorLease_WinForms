@@ -51,6 +51,7 @@ namespace MotorLease.Client.Forms
             InitializeComponent();
         }
 
+        //Method that is called when the form loads, and passes data to the form
         private void LandingPage_Load(object sender, EventArgs e)
         {
             ApplicationInfo.PreviousForm = this;
@@ -194,6 +195,7 @@ namespace MotorLease.Client.Forms
 
         
         #region LandingPage Grid
+
 
         public DataGridViewButtonColumn GenerateLandingPageBookButtonColumn(DataGridViewButtonColumn column)
         {

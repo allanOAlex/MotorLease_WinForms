@@ -15,7 +15,19 @@ namespace MotorLease.Domain.Models
 
         [Key]
         public int Id { get; set; }
-        public string Description { get; set; }
+        public string description { get; set; }
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+            set
+            {
+                description = value;
+            }
+        }
+
 
 
         [NotMapped]

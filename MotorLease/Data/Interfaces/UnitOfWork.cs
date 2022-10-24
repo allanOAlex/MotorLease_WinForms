@@ -32,6 +32,7 @@ namespace MotorLease.Data.Interfaces
 
         }
 
+        //This method saves/ updates data to the DB
         public Task CompleteAsync()
         {
             return context.SaveChangesAsync();

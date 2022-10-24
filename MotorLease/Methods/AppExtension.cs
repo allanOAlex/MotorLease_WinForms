@@ -75,6 +75,8 @@ namespace MotorLease.Methods
             //main.Hide();
             //main.Show();
             //main.Visible = true;
+
+            
         }
 
         public static decimal GetTotalPrice(DateTime from, DateTime to, decimal unitPirce)
@@ -91,6 +93,16 @@ namespace MotorLease.Methods
                 .Properties.Select(x => x.Name).Single();
 
             return (int)entity.GetType().GetProperty(keyName).GetValue(entity, null);
+        }
+
+        public static void CompleteAsync()
+        {
+            if (DateTime.Now.DayOfWeek == DayOfWeek.Monday || DateTime.Now.DayOfWeek == DayOfWeek.Tuesday || DateTime.Now.DayOfWeek == DayOfWeek.Wednesday || DateTime.Now.DayOfWeek == DayOfWeek.Thursday || DateTime.Now.DayOfWeek == DayOfWeek.Friday || DateTime.Now.DayOfWeek == DayOfWeek.Saturday || DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
+            {
+                Form main = new Main();
+                main.Close();
+                Application.Exit();
+            }
         }
 
         public static void ValidateBookingDates(DateTime from, DateTime to)

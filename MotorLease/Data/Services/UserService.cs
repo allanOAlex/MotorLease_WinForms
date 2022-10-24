@@ -168,7 +168,7 @@ namespace MotorLease.Data.Services
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
-                throw new Exception($"Could not create record | {errorMessage}");
+                throw new Exception($"Could not validate user | {errorMessage}");
 
             }
         }
