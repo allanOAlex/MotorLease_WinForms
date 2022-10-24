@@ -12,7 +12,22 @@ namespace MotorLease.Client.Forms
     {
         public Main()
         {
+            BackgroundImage = Properties.Resources.Background_Main;
             InitializeComponent();
+            BackgroundImage = Properties.Resources.Background_Main;
         }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void Login(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Form login = new Login();
+            login.Show();
+            //Hide();
+        }
+
+        
     }
 }

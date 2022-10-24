@@ -10,8 +10,7 @@ namespace MotorLease.Data.Dtos.Forms
         public int Id { get; set; }
         public Image Image { get; set; }
         public string Description { get; set; }
-        public string Color { get; set; }
         public string Registration { get; set; }
-        public decimal Price { get; set; }
+        public decimal UnitPrice { get; set; }
     }
 }

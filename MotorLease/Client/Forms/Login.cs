@@ -13,8 +13,11 @@ using System.Windows.Forms;
 
 namespace MotorLease.Client.Forms
 {
+
     public partial class Login : Form
     {
+        FormClosingEventArgs formClosingEventArgs;
+
         private readonly IUserService userService;
 
         public Login()
@@ -26,9 +29,7 @@ namespace MotorLease.Client.Forms
 
         private async void HandleLogin(object sender, EventArgs e)
         {
-            MyBookings myBookings = new MyBookings();
-            CreateBooking form = new CreateBooking(myBookings);
-            Home landingPage = new Home(form);
+            Home landingPage = new Home();
 
             var validUser = await ValidateUser();
 
@@ -39,10 +40,11 @@ namespace MotorLease.Client.Forms
                 ApplicationInfo.Username = validUser.Username;
                 ApplicationInfo.Firstname = validUser.FirstName;
                 ApplicationInfo.Phone = validUser.Phone;
+                ApplicationInfo.Address = validUser.Address;
                 ApplicationInfo.IsAdmin = validUser.IsAdmin;
 
-                LoadLandingPage();
-
+                LoadHomePage();
+                
             }
             else
             {
@@ -67,15 +69,18 @@ namespace MotorLease.Client.Forms
             Hide();
         }
 
-        public void LoadLandingPage()
+        public void LoadHomePage()
         {
             MyBookings myBookings = new MyBookings();
-            CreateBooking form = new CreateBooking(myBookings);
-            Form landing = new Home(form);
+            Form home = new Home();
+            Form main = new Main();
             Home.Message = $"Welcome, {ApplicationInfo.Firstname}";
             Home.UserId = ApplicationInfo.UserId;
+            
+            Close();
             Hide();
-            landing.Show();
+            main.Visible = false;
+            home.Show();
             
         }
 
@@ -113,7 +118,7 @@ namespace MotorLease.Client.Forms
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error creating user. | {ex.Message}");
+                throw new Exception($"Error while trying to login. | {ex.Message}");
             }
 
         }

@@ -31,15 +31,18 @@ namespace MotorLease
             services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IBookingService, BookingService>();
-            services.AddScoped<ICarService, MotorService>();
+            services.AddScoped<ICarService, CarService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IReviewService, ReviewService>();
 
             services.AddAutoMapper(typeof(Program));
 
-            services.AddDbContext<DBContext>(options => options.UseSqlServer(ConfigurationManager.ConnectionStrings["MotorLease"].ConnectionString));
+            services.AddDbContext<DBContext>(options => 
+            options.UseSqlServer(ConfigurationManager.ConnectionStrings["LawiRides"].ConnectionString));
 
             serviceProvider = services.BuildServiceProvider();
 
@@ -50,9 +53,6 @@ namespace MotorLease
             return (T)serviceProvider.GetService(typeof(T));
         }
 
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
@@ -60,29 +60,9 @@ namespace MotorLease
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //var host = CreateHostBuilder().Build();
-            //serviceProvider = host.Services;
-
             ConfigureServices();
             Application.Run(new Main());
         }
 
-        //static IHostBuilder CreateHostBuilder()
-        //{
-        //    return Host.CreateDefaultBuilder()
-        //    .ConfigureServices((context, services) => {
-        //        services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-        //        services.AddScoped<IUserRepository, UserRepository>();
-        //        services.AddScoped<IBookingRepository, BookingRepository>();
-        //        services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-        //        services.AddScoped<IBookingService, BookingService>();
-        //        services.AddScoped<IMotorService, MotorService>();
-        //        services.AddScoped<IUserService, UserService>();
-
-        //        services.AddAutoMapper(typeof(Program));
-
-        //    });
-        //}
     }
 }

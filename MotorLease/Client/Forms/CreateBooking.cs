@@ -1,12 +1,16 @@
-﻿using MotorLease.Data.Dtos;
-using MotorLease.Data.Dtos.Models;
+﻿using MotorLease.Data.Dtos.Models;
+using MotorLease.Data.Interfaces;
+using MotorLease.Data.Services;
+using MotorLease.Domain.Interfaces;
 using MotorLease.Domain.Models;
 using MotorLease.Domain.Services;
+using MotorLease.Methods;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,54 +19,94 @@ namespace MotorLease.Client.Forms
 {
     public partial class CreateBooking : Form
     {
-        private DataGridViewCellEventArgs cellEvent;
-        private object senderParam;
         private readonly IBookingService bookingService;
-        private readonly ICarService motorService;
+        private readonly ICarService carService;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IUserService userService;
 
-        private Home landingPageForm;
-        private MyBookings myBookings;
+        List<CarMake> carMakes = new List<CarMake>();
+        List<CarModel> carModels = new List<CarModel>();
 
-        public static int MotorModelId { get; set; }
-        public CreateBooking(MyBookings MyBookings)
+        
+        public static int UserId { get; set; }
+        public static string FirstName { get; set; }
+        public static string LastName { get; set; }
+        public static int CarModelId { get; set; }
+        public decimal UnitPrice { get; private set; }
+        public decimal TotalPrice { get; private set; }
+
+        public CreateBooking()
         {
             bookingService = Program.GetService<IBookingService>();
-            motorService = Program.GetService<ICarService>();
-            myBookings = MyBookings;
+            carService = Program.GetService<ICarService>();
+            userService = Program.GetService<IUserService>();
+            unitOfWork = Program.GetService<IUnitOfWork>();
+
             InitializeComponent();
         }
 
-        private void AbortBooking(object sender, EventArgs e)
+        private void CreateBooking_Load(object sender, EventArgs e)
         {
-            CreateBooking bookingFrom = new CreateBooking(myBookings);
-            bookingFrom.Close();
-            Form landing = new Home(bookingFrom);
-            landing.Show();
+            MyBookings myBookings = new MyBookings();
+            Form previous = new ManageBookings(myBookings);
+            ApplicationInfo.CurrentForm = this;
+            ApplicationInfo.PreviousForm = previous;
+
+            GetMakeComboBoxData();
+            GetModelComboBoxData();
+
+            comboBoxMake.DataSource = carMakeBindingSource;
+            comboBoxMake.DisplayMember = "Description";
+            comboBoxMake.ValueMember = "Id";
+
+            comboBoxModel.DataSource = carModelBindingSource;
+            comboBoxModel.DisplayMember = "Description";
+            comboBoxModel.ValueMember = "Id";
+
+
+            //UserId = ApplicationInfo.UserId;
+            CarModelId = ApplicationInfo.CarModelId;
+            //UnitPrice = //get from the grid
+            //TotalPrice = //calculate
+            //BookingDate = DateTime.Today
+            //CreatedBy = ApplicationInfo.UserId  
+
+            Make_SelectedIndexChanged(sender, e);
         }
 
-        private void PerformBooking(object sender, EventArgs e)
+        private void Save(object sender, EventArgs e)
         {
-            DateTime from = dateTimePickerFrom.Value;
-            DateTime to = dateTimePickerTo.Value;
+            DoBooking(dateTimePickerFrom.Value, dateTimePickerTo.Value);
+        }
 
-            ApplicationInfo.DateFrom = from;
-            ApplicationInfo.DateTo = to;
+        public async void DoBooking(DateTime from, DateTime to)
+        {
+            AppExtension.ValidateBookingDates(from, to);
+
+            await DoCreateBooking();
+            Close();
+            MyBookings myBookings = new MyBookings();
+            Form manageBookings = new ManageBookings(myBookings);
+            manageBookings.Show();
 
 
-            ValidateBookingInfo(from, to);
-
-            
         }
 
         private async Task<CreateBookingResponse> DoCreateBooking()
         {
+            //TotalPrice = AppExtension.GetTotalPrice(dateTimePickerFrom.Value, dateTimePickerTo.Value, UnitPrice);
+
             var bookingRequest = new CreateBookingRequest
             {
-                MotorModelId = ApplicationInfo.CarModelId,
                 UserId = ApplicationInfo.UserId,
+                CarModelId = ApplicationInfo.CarModelId,
+                UnitPrice = UnitPrice,
+                TotalPrice = AppExtension.GetTotalPrice(dateTimePickerFrom.Value, dateTimePickerTo.Value, UnitPrice),
                 BookingDate = DateTime.Now,
-                DateFrom = ApplicationInfo.DateFrom,
-                DateTo = ApplicationInfo.DateTo
+                CreatedBy = ApplicationInfo.UserId,
+                DateFrom = dateTimePickerFrom.Value,
+                DateTo = dateTimePickerTo.Value,
+                UpdatedBy = ApplicationInfo.UserId
             };
 
             try
@@ -70,18 +114,15 @@ namespace MotorLease.Client.Forms
                 var createdBooking = await bookingService.CreateBooking(bookingRequest);
                 if (createdBooking != null)
                 {
-                    CreateBooking bookingForm = new CreateBooking(myBookings);
-                    bookingForm.Close();
                     ApplicationInfo.CreateBookingResponse = createdBooking;
-                    motorService.RemoveAvailability();
-                    Home landing = new Home(bookingForm);
-                    if (landingPageForm == null)
-                    {
-                        landingPageForm = new Home(this);
-                    }
-                    landingPageForm.Hide();
-                    landingPageForm.Show();
 
+                    int available = carService.RemoveAvailability();
+                    if (available > 0)
+                    {
+                        await unitOfWork.CompleteAsync();
+                    }
+
+                    MessageBox.Show($"Booking created successfully");
                     return createdBooking;
                 }
 
@@ -95,37 +136,97 @@ namespace MotorLease.Client.Forms
 
         }
 
-        public async void ValidateBookingInfo(DateTime from, DateTime to)
+        public List<CarMake> GetMakeComboBoxData()
         {
-            if (from < DateTime.Today)
-            {
-                MessageBox.Show($"Collection date must be greater today");
-                return;
-            }
-            if (to < DateTime.Today)
-            {
-                MessageBox.Show($"Return date must not be lesser than today");
-                return;
-            }
-            if (from == to || to < from)
-            {
-                MessageBox.Show($"Return date must be greater than date of collection");
-                return;
-            }
 
-            // await CreateBooking();
-            await DoCreateBooking();
-            //DataGridViewBookings_CellClick(senderParam, cellEvent);
-
-            myBookings.Hide();
-            myBookings.Refresh();
-            myBookings.Show();
-
+            carMakes = carService.GetMakeComboBoxData();
+            carMakeBindingSource.DataSource = carMakes;
+            return carMakes;
         }
 
-        public void DataGridViewBookings_CellClick(object sender, DataGridViewCellEventArgs e)
+        public List<CarModel> GetModelComboBoxData()
         {
-            myBookings.dataGridViewBookings_CellClick(sender, e);
+            carModels = carService.GetModelComboBoxData();
+            carModelBindingSource.DataSource = carModels;
+            return carModels;
+        }
+
+        public decimal GetUnitPrice(int carModelId)
+        {
+            var unitPrice = carService.GetUnitPrice(carModelId);
+            return unitPrice;
+        }
+
+
+        private void GoBack(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AppExtension.GoBack(ApplicationInfo.CurrentForm, ApplicationInfo.PreviousForm);
+        }
+
+        private void Logout(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AppExtension.Logout();
+        }
+
+        private void Make_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = comboBoxMake.SelectedIndex;
+
+            if (comboBoxMake.SelectedValue != null)
+            {
+                int selectedValue = (int)comboBoxMake.SelectedValue;
+                var makeModels = carModels.Where(m => m.CarMakeId == selectedValue).ToList();
+                comboBoxModel.DataSource = makeModels;
+            }
+            else
+            {
+                // Do Absolutely Nothing
+            }
+        }
+
+        private void Model_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxModel.SelectedValue != null)
+            {
+                comboBoxModel.SelectedValue = (int)comboBoxModel.SelectedValue;
+                ApplicationInfo.CarModelId = (int)comboBoxModel.SelectedValue;
+            }
+            else
+            {
+                // Do Absolutely Nothing
+            }
+            var price = GetUnitPrice((int)comboBoxModel.SelectedValue).ToString();
+            UnitPrice = GetUnitPrice((int)comboBoxModel.SelectedValue);
+            labelUnitPrice.Text = price;
+        }
+
+        private void AbortBooking(object sender, EventArgs e)
+        {
+            AppExtension.GoBack(ApplicationInfo.CurrentForm, ApplicationInfo.PreviousForm);
+        }
+
+        private async void SearchUser(object sender, EventArgs e)
+        {
+            var request = new GetUserByIdRequest
+            {
+                IdNumber = textBoxIdNo.Text
+            };
+
+            var user = await GetUserByIdNumber(request);
+
+            UserId = user.Id;
+            FirstName = user.FirstName;
+            LastName = user.LastName;
+
+            labelCustomerName.Text = FirstName + " " + LastName;
+        }
+            
+
+        public async Task<GetUserByIdResponse> GetUserByIdNumber(GetUserByIdRequest request)
+        {
+            request.IdNumber = textBoxIdNo.Text;
+            var user = await userService.GetUserByIdNumber(request);
+            return user;
         }
     }
 }

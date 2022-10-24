@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace MotorLease.Domain.Models
@@ -55,6 +56,8 @@ namespace MotorLease.Domain.Models
         [DefaultValue(false)]
         public bool IsAdmin { get; set; } = false;
 
+
+        [NotMapped]
         public virtual ICollection<Booking> Bookings { get; set; } = new HashSet<Booking>();
     }
 }

@@ -11,9 +11,10 @@ namespace MotorLease.Domain.IRepositories
     public interface IBookingRepository : IBaseRepository<Booking>
     {
         List<BookingGridResponse> GetBookingsById();
+        List<BookingGridResponse> GetAdminBookings();
 
         Booking UpdateBooking(Booking entity);
-        public Booking CancelBooking(Booking entity);
+        int CancelBooking(int bookingId, int carModelId);
         Booking EditBooking(Booking entity);
     }
 }

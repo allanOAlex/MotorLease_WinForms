@@ -21,39 +21,43 @@ namespace MotorLease.Client.Forms
 {
     public partial class Home : Form
     {
+        FormClosingEventArgs formClosingEventArgs;
         private readonly ICarService motorService;
         private readonly IBookingService bookingService;
-        private readonly CarModelRequest motorModelRequest;
 
-        private CreateBooking bookingForm;
-        
+        GridImage gridImage = new GridImage();
 
         DataGridViewButtonColumn bookButton = new DataGridViewButtonColumn();
         DataGridViewImageColumn img = new DataGridViewImageColumn();
         DataTable dataTable = new DataTable();
         List<CarModel> gridList = new List<CarModel>();
         List<MotorModelGridResposne> gridMotorList = new List<MotorModelGridResposne>();
-        
+        List<CarModelGridResponse> gridMotorList2 = new List<CarModelGridResponse>();
+        List<GridImage> gridImages = new List<GridImage>();
 
-        public static string Message { get; set; }
+
+
         public static int Id { get; set; }
         public static int UserId { get; set; }
+        public static string Message { get; set; }
 
         Image image = null;
 
-        public Home(CreateBooking BookingForm)
+        public Home()
         {
             motorService = Program.GetService<ICarService>();
             bookingService = Program.GetService<IBookingService>();
-
-            bookingForm = BookingForm;
 
             InitializeComponent();
         }
 
         private void LandingPage_Load(object sender, EventArgs e)
         {
-            lblLanding.Text = Message;
+            ApplicationInfo.PreviousForm = this;
+            ApplicationInfo.CurrentForm = this;
+
+            linkLabelGoBack.Visible = false;
+            lblHome.Text = Message;
             btnMyBookings.Visible = true;
             
 
@@ -61,6 +65,7 @@ namespace MotorLease.Client.Forms
             {
                 btnManageUsers.Visible = false;
                 btnManageBookings.Visible = false;
+                btnManageCars.Visible = false;
             }
 
             dataTable.TableName = "AllCars";
@@ -77,6 +82,7 @@ namespace MotorLease.Client.Forms
 
         private void LoadMyBookings(object sender, EventArgs e)
         {
+            Hide();
             Form myBookings = new MyBookings();
             myBookings.Show();
         }
@@ -93,33 +99,43 @@ namespace MotorLease.Client.Forms
 
             if (grid[e.ColumnIndex, e.RowIndex] is DataGridViewButtonCell)
             {
-                var bookButtonClicked = (Action<MotorModelGridResposne>)grid.Columns[e.ColumnIndex].Tag;
-                var motor = (MotorModelGridResposne)grid.Rows[e.RowIndex].DataBoundItem;
+                var bookButtonClicked = (Action<CarModelGridResponse>)grid.Columns[e.ColumnIndex].Tag;
+                var motor = (CarModelGridResponse)grid.Rows[e.RowIndex].DataBoundItem;
+
+                //Could be used at Manage Bookings
+                //ApplicationInfo.CarUnitPrice = 0;
+                //ApplicationInfo.TotalPrice = 0;
+                //ApplicationInfo.BookingDate = DateTime.Now;
+
+                Hide();
                 DoBooking(motor);
             }
 
         }
 
-        public void DoBooking(MotorModelGridResposne model)
+        public void DoBooking(CarModelGridResponse model)
         {
 
             MyBookings myBookings = new MyBookings();
-            MessageBox.Show($"Booking {model.Description} {model.Registration}");
-            Form bookingForm = new CreateBooking(myBookings);
+            MessageBox.Show($"Booking {model.Make} {model.Model} {model.Registration}");
+            Form bookingForm = new CarBooking(myBookings);
+
             ApplicationInfo.CarModelId = model.Id;
-            CreateBooking.MotorModelId = Id;
+            ApplicationInfo.CarMakeDescription = model.Make;
+            ApplicationInfo.CarUnitPrice = model.UnitPrice;
+
             Hide();
             bookingForm.Show();
         }
 
-        public async Task<CarModelResponse> GetMotors(CarModelRequest motorModelRequest)
+        public IQueryable<CarModel> GetCar(CarModel request)
         {
             try
             {
-                var motors = await motorService.GetMotors(motorModelRequest);
-                if (motors != null)
+                var car = motorService.GetCar(request);
+                if (car != null)
                 {
-                    return motors;
+                    return car;
                 }
 
                 return null;
@@ -132,55 +148,48 @@ namespace MotorLease.Client.Forms
 
         public void LoadMotorModels()
         {
-            var motors = motorService.GetMotorModels();
-            List<CarModel> motorList = motors.ToList();
+            var motors = motorService.GetCarModelsForHome();
+            List<CarModelGridResponse> motorList = motors.ToList();
 
-            var motorModelResponseMap = new MapperConfiguration(cfg => cfg.CreateMap<CarModel, MotorModelGridResposne>());
-            IMapper motorModelResponseMapper = motorModelResponseMap.CreateMapper();
+            var ResponseMap = new MapperConfiguration(cfg => cfg.CreateMap<CarModel, CarModelGridResponse>());
+            IMapper ResponseMapper = ResponseMap.CreateMapper();
+
+            var ImageResponseMap = new MapperConfiguration(cfg => cfg.CreateMap<CarModelGridResponse, MotorModelGridResposne>());
+            IMapper ImageResponseMapper = ImageResponseMap.CreateMapper();
 
             foreach (var listItem in motorList)
             {
-                Id = listItem.Id;
-                image = AppExtension.ConvertBase64ToImage(listItem.Image);
+                gridImage.CarModelId = listItem.Id;
+                gridImage.Image = image;
+                gridImages.Add(gridImage);
 
-                var result = motorModelResponseMapper.Map<CarModel, MotorModelGridResposne>(listItem);
-
-                result = new MotorModelGridResposne
+                var result = new CarModelGridResponse
                 {
                     Id = listItem.Id,
-                    Description = listItem.Description,
+                    Make = listItem.Make,
+                    Model = listItem.Model,
                     Registration = listItem.Registration,
-                    Price = listItem.UnitPrice,
-                    Image = image,
-                };
+                    UnitPrice = listItem.UnitPrice,
+                    Image = listItem.Image,
 
-                gridMotorList.Add(result);
-
-                var motorModel = new CarModel
-                {
-                    Description = listItem.Description,
-                    Registration = listItem.Registration,
-                    UnitPrice = listItem.UnitPrice
                 };
-                gridList.Add(motorModel);
+                gridMotorList2.Add(result);
 
                 var list = motorList.Select(m => new
                 {
                     m.Id,
-                    m.Description,
+                    m.Model,
                     m.Image,
                     m.Registration,
                     m.UnitPrice,
-                    m.IsAvailable
 
                 });
             }
 
-            DefineLandingFormDataGrid(dataGridAllMotors);
-
-            dataGridAllMotors.DataSource = gridMotorList;
-
-            AddExtraColumnsToLandingFormGrid(dataGridAllMotors);
+            
+            DefineLandingFormDataGrid(dataGridAllCars);
+            dataGridAllCars.DataSource = gridMotorList2;
+            AddExtraColumnsToLandingFormGrid(dataGridAllCars);
         }
 
         
@@ -201,11 +210,12 @@ namespace MotorLease.Client.Forms
 
         public DataGridViewImageColumn GenerateLandingPageImageColumn(DataGridViewImageColumn column)
         {
+            
             column.Image = image;
             column.ImageLayout = DataGridViewImageCellLayout.Stretch;
             column.HeaderText = "Image";
             column.Name = "img";
-
+            
             return column;
         }
 
@@ -214,14 +224,14 @@ namespace MotorLease.Client.Forms
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.RowTemplate.Height = 100;
             dataGridView.AllowUserToAddRows = false;
-            dataGridView.Tag = (Action<MotorModelGridResposne>)DoBooking;
+            dataGridView.Tag = (Action<CarModelGridResponse>)DoBooking;
 
             return dataGridView;
         }
 
         public DataGridView AddExtraColumnsToLandingFormGrid(DataGridView dataGridView)
         {
-            dataGridView.Columns.Add(GenerateLandingPageImageColumn(img));
+            //dataGridView.Columns.Add(GenerateLandingPageImageColumn(img));
             dataGridView.Columns.Add(GenerateLandingPageBookButtonColumn(bookButton));
 
             return dataGridView;
@@ -232,7 +242,7 @@ namespace MotorLease.Client.Forms
 
         public void DeleteRow(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridAllMotors.Columns[e.ColumnIndex].Name == "Book")
+            if (dataGridAllCars.Columns[e.ColumnIndex].Name == "Book")
             {
                 if (MessageBox.Show("Are you sure want to delete this record ?", "Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -242,17 +252,59 @@ namespace MotorLease.Client.Forms
             }
         }
 
-        private void btnManageBookings_Click(object sender, EventArgs e)
+        private void ManageBookings(object sender, EventArgs e)
         {
             MyBookings myBookings = new MyBookings();
             Form manageBookings = new ManageBookings(myBookings);
             manageBookings.Show();
         }
 
-        private void btnManageUsers_Click(object sender, EventArgs e)
+        private void ManageUsers(object sender, EventArgs e)
         {
+            Hide();
             Form manageUsers = new ManageUsers();
             manageUsers.Show();
+        }
+
+        private void ManageCars(object sender, EventArgs e)
+        {
+            Hide();
+            Form manageCars = new ManageCars();
+            manageCars.Show();
+        }
+
+        private void GoBack(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AppExtension.GoBack(ApplicationInfo.CurrentForm, ApplicationInfo.PreviousForm);
+        }
+
+        private void Logout(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //AppExtension.Logout(sender, formClosingEventArgs);
+            AppExtension.Logout();
+        }
+
+        private void Filter(object sender, EventArgs e)
+        {
+            //var request = new SearchCarRequest
+            //{
+            //    MakeId = 0,
+            //    ModelId = 0
+            //};
+
+            //var user = await GetUserByIdNumber(request);
+
+            //UserId = user.Id;
+            //FirstName = user.FirstName;
+            //LastName = user.LastName;
+
+            //labelCustomerName.Text = FirstName + " " + LastName;
+        }
+
+        private void GetUserReviews(object sender, EventArgs e)
+        {
+            Form reviews = new UserReviews();
+            reviews.Show(); 
         }
     }
 }

@@ -8,10 +8,11 @@ namespace MotorLease.Data.Dtos.Forms
     public class BookingGridRequest
     {
         public int Id { get; set; }
-        public string MakeDescription { get; set; }
-        public string ModelDescription { get; set; }
-        public Image Image { get; set; }
+        public int CarModelId { get; set; }
+        public int UserId { get; set; }
+        public decimal TotalPrice { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
+        public int UpdatedBy { get; set; }
     }
 }

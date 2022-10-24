@@ -1,10 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using MotorLease.Data.Context;
 using MotorLease.Data.Dtos;
+using MotorLease.Data.Dtos.Forms;
 using MotorLease.Domain.Interfaces;
 using MotorLease.Domain.IRepositories;
 using MotorLease.Domain.Models;
+using MotorLease.Methods;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -37,53 +40,98 @@ namespace MotorLease.Data.Repositories
     
         public IQueryable<CarModel> FindAll()
         {
-            return context.CarModels.Where(m => m.IsAvailable == true).AsNoTracking();
+            return context.CarModels.Where(m => m.IsAvailable == true);
+            //return context.CarModels.Where(m => m.IsAvailable == true).AsNoTracking();
         }
 
-        public IQueryable<CarModel> FindAllWithMakes()
+        public IQueryable<CarModel> GetCar(CarModel model)
         {
-            IQueryable<CarMake> makes = context.CarMakes.AsNoTracking();
-            var results = context.CarModels.Where(m => m.IsAvailable.Equals(true)).AsNoTracking();
+            return context.CarModels.Where(m => m.Id == model.Id).AsNoTracking();
+        }
 
-            var resp = from result in results
-                       join make in makes
-                       on result.CarMake.Id equals make.Id
-                       select new CarModel
-                       { 
+        public List<CarModelGridResponse> GetCarModelsForHome()
+        {
+            CarModelGridResponse response = new CarModelGridResponse(); 
+            List<CarModelGridResponse> carModels = new List<CarModelGridResponse>();
+            var connectionString = ConfigurationManager.ConnectionStrings["LawiRides"].ConnectionString;
+            string queryString = $"select " +
+                $"cmd.Id, " +
+                $"cmk.Description as Make, " +
+                $"cmd.Description as Model, " +
+                $"cmd.Registration, " +
+                $"cmd.UnitPrice, " +
+                $"cmd.Image " +
+                $"from CarModels cmd " +
+                $"left join CarMakes cmk on cmd.CarMakeId = cmk.Id " +
+                $"where cmd.IsAvailable = 1 ";
+            var connection = new SqlConnection(connectionString);
+            var command = new SqlCommand(queryString, connection);
+            connection.Open();
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    response = new CarModelGridResponse
+                    {
+                        Id = int.Parse(reader["Id"].ToString()),
+                        Make =reader["Make"].ToString(),
+                        Model = reader["Model"].ToString(),
+                        Registration = reader["Registration"].ToString(),
+                        UnitPrice = (decimal)reader["UnitPrice"],
+                        Image = AppExtension.ConvertBase64ToImage((string)reader["Image"])
+                    };
 
-                       };
-            return resp;
+                    carModels.Add(response);
+                }
+            }
+            connection.Close();
+            return carModels;
+        }
+
+        public List<CarModelGridResponse> GetCarModels2()
+        {
+            CarModelGridResponse response = new CarModelGridResponse();
+            List<CarModelGridResponse> carModels = new List<CarModelGridResponse>();
+            var connectionString = ConfigurationManager.ConnectionStrings["LawiRides"].ConnectionString;
+            string queryString = $"select " +
+                $"cmd.Id, " +
+                $"cmk.Description as Make, " +
+                $"cmd.Description as Model, " +
+                $"cmd.Registration, " +
+                $"cmd.UnitPrice, " +
+                $"cmd.Image " +
+                $"from CarModels cmd " +
+                $"left join CarMakes cmk on cmd.CarMakeId = cmk.Id ";
+            var connection = new SqlConnection(connectionString);
+            var command = new SqlCommand(queryString, connection);
+            connection.Open();
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    response = new CarModelGridResponse
+                    {
+                        Id = int.Parse(reader["Id"].ToString()),
+                        Make = reader["Make"].ToString(),
+                        Model = reader["Model"].ToString(),
+                        Registration = reader["Registration"].ToString(),
+                        UnitPrice = (decimal)reader["UnitPrice"],
+                        Image = AppExtension.ConvertBase64ToImage((string)reader["Image"])
+                    };
+
+                    carModels.Add(response);
+                }
+            }
+            connection.Close();
+            return carModels;
         }
 
         public IQueryable<CarModel> FindByCondition(Expression<Func<CarModel, bool>> expression)
         {
             return context.CarModels.Where(expression).AsNoTracking();
         }
-
-        public CarModel GetAll(CarModel motorModelResponse)
-        {
-            var connectionString = ConfigurationManager.ConnectionStrings["MotorLease"].ConnectionString;
-            string queryString = "SELECT * FROM MotorModels WHERE IsAvailable = 1 AND IsActive = 1";
-            var connection = new SqlConnection(connectionString);
-            var command = new SqlCommand(queryString, connection);
-            connection.Open();
-            var reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                motorModelResponse.Id = Convert.ToInt32(reader["Id"]);
-                motorModelResponse.CarMake.Id = Convert.ToInt32(reader["MotorMakeId"]);
-                motorModelResponse.Description = reader["Description"].ToString();
-                motorModelResponse.Image = reader["MotorImage"].ToString();
-                motorModelResponse.Registration = reader["Registration"].ToString();
-                motorModelResponse.UnitPrice = Convert.ToDecimal(reader["Price"]);
-                motorModelResponse.IsAvailable = (bool)reader["IsAvailable"];
-            }
-
-            connection.Close();
-
-            return motorModelResponse;
-        }
-
 
         public void Update(CarModel entity)
         {
@@ -92,8 +140,8 @@ namespace MotorLease.Data.Repositories
 
         public int RemoveAvailability()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["MotorLease"].ConnectionString;
-            string queryString = $"UPDATE MotorModels SET IsAvailable = 0 WHERE Id = {ApplicationInfo.CarModelId}";
+            var connectionString = ConfigurationManager.ConnectionStrings["LawiRides"].ConnectionString;
+            string queryString = $"UPDATE CarModels SET IsAvailable = 0 WHERE Id = {ApplicationInfo.CarModelId}";
             var connection = new SqlConnection(connectionString);
             var command = new SqlCommand(queryString, connection);
             connection.Open();
@@ -102,5 +150,96 @@ namespace MotorLease.Data.Repositories
 
             return result;
         }
+
+        public List<CarMake> GetMakeComboBoxData()
+        {
+            List<CarMake> carMakes = new List<CarMake>();
+            CarMake carMake = new CarMake();    
+            var connectionString = ConfigurationManager.ConnectionStrings["LawiRides"].ConnectionString;
+            string queryString = $"select cm.Id, cm.Description from CarMakes cm";
+            var connection = new SqlConnection(connectionString);
+            var command = new SqlCommand(queryString, connection);
+            connection.Open();
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                carMake = new CarMake
+                {
+                    Id = Convert.ToInt32(reader["Id"]),
+                    Description = reader["Description"].ToString()
+
+                };
+                carMakes.Add(carMake);  
+            }
+
+            connection.Close();
+
+            return carMakes;
+        }
+
+        public List<CarModel> GetModelComboBoxData()
+        {
+            List<CarModel> carModels = new List<CarModel>();    
+            CarModel model = new CarModel();
+            var connectionString = ConfigurationManager.ConnectionStrings["LawiRides"].ConnectionString;
+            string queryString = $"select cm.Id, cm.CarMakeId, cm.UnitPrice, cm.Description from CarModels cm";
+            var connection = new SqlConnection(connectionString);
+            var command = new SqlCommand(queryString, connection);
+            connection.Open();
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                model = new CarModel
+                {
+                    Id = Convert.ToInt32(reader["Id"]),
+                    CarMakeId = Convert.ToInt32(reader["CarMakeId"]),
+                    UnitPrice = (decimal)(reader["UnitPrice"]),
+                    Description = reader["Description"].ToString()
+
+                };
+                carModels.Add(model);
+            }
+            connection.Close();
+
+            return carModels;
+        }
+
+        public string GetCarImage(int Id) 
+        {
+            string imageString = string.Empty;
+            var connectionString = ConfigurationManager.ConnectionStrings["LawiRides"].ConnectionString;
+            string queryString = $"select cm.Image from CarModels cm where Id = {Id}";
+            var connection = new SqlConnection(connectionString);
+            var command = new SqlCommand(queryString, connection);
+            connection.Open();
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                imageString = reader["Image"].ToString();
+            }
+            connection.Close();
+
+            return imageString;
+        }
+
+        public decimal GetUnitPrice(int Id) 
+        {
+            decimal unitPricce = 0;
+            var connectionString = ConfigurationManager.ConnectionStrings["LawiRides"].ConnectionString;
+            string queryString = $"select cm.UnitPrice from CarModels cm where Id = {Id}";
+            var connection = new SqlConnection(connectionString);
+            var command = new SqlCommand(queryString, connection);
+            connection.Open();
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                unitPricce = (decimal)reader["UnitPrice"];
+            }
+            connection.Close();
+
+            return unitPricce;
+        }
+
+        
     }
 }

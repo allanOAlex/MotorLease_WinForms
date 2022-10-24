@@ -12,6 +12,7 @@ namespace MotorLease.Domain.IRepositories
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
         T Create(T entity);
         void Update(T entity);
+        //T UpdateEntity(T entity);
         void Delete(T entity);
     }
 }

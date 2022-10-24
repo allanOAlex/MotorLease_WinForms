@@ -10,7 +10,8 @@ namespace MotorLease.Domain.Interfaces
     {
         IUserRepository Users { get; }
         IBookingRepository Bookings { get; }
-        ICarRepository Motors { get; }
+        ICarRepository Cars { get; }
+        IReviewRepository Reviews { get; }
 
         Task CompleteAsync();
     }

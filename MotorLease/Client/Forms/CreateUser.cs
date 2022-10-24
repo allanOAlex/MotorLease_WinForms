@@ -81,14 +81,14 @@ namespace MotorLease.Client.Forms
 
         private void AbortlUserRegistration(object sender, EventArgs e)
         {
-            ReloadThisForm();
+            Close();
         }
 
-        public void ReloadThisForm()
+        private void ResetForm(object sender, EventArgs e)
         {
-            Show();
             Clear();
         }
+
         public void Clear()
         {
             txtUserRegUsername.Text = string.Empty;
@@ -224,5 +224,7 @@ namespace MotorLease.Client.Forms
         }
 
         #endregion
+
+        
     }
 }
