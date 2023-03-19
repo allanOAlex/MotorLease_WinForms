@@ -20,7 +20,7 @@ namespace MotorLease.Client.Forms
 
         private void Main_Load(object sender, EventArgs e)
         {
-            AppExtension.CompleteAsync();
+            //AppExtension.CompleteAsync();
         }
 
         private void Login(object sender, LinkLabelLinkClickedEventArgs e)
