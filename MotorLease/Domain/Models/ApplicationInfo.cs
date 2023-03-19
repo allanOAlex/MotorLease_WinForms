@@ -1,9 +1,11 @@
 ﻿using MotorLease.Data.Dtos;
+using MotorLease.Data.Dtos.Forms;
 using MotorLease.Data.Dtos.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using System.Windows.Forms;
 
 namespace MotorLease.Domain.Models
 {
@@ -16,6 +18,7 @@ namespace MotorLease.Domain.Models
         public static string Firstname;
         public static string Lastname;
         public static string Phone;
+        public static string Address;
         public static bool IsAdmin;
 
 
@@ -42,7 +45,30 @@ namespace MotorLease.Domain.Models
         public static bool CarIsAvailabe;
         public static string CarImage;
 
+        public static Image EditBookingImage;
+        public static string EditBookingMake;
+        public static string EditBookingModel;
+        public static DateTime EditBookingDateFrom;
+        public static DateTime EditBookingDateTo;
+        
+
         public static CreateBookingResponse CreateBookingResponse;
-         
+
+        public static List<BookingGridResponse> BookingGridResponses;
+        public static BookingGridResponse BookingForEdit; 
+        public static BookingGridResponse BookingForCancel; 
+        public static BookingGridResponse BookingForReview; 
+        
+        public static Form CurrentForm; 
+        public static Form PreviousForm; 
+
+        public static int CancelBookingCarModelId;
+
+        public static string Comments;
+        public static decimal TotalPrice;
+
+        public static int ReavailForBooking;
+
+
     }
 }

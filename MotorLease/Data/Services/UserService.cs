@@ -99,7 +99,6 @@ namespace MotorLease.Data.Services
                 var response = unitOfWork.Users.FindAll();
                 if (response != null)
                 {
-
                     return response;
                 }
 
@@ -169,9 +168,36 @@ namespace MotorLease.Data.Services
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                throw new Exception($"Could not validate user | {errorMessage}");
+
+            }
+        }
+
+        public async Task<GetUserByIdResponse> GetUserByIdNumber(GetUserByIdRequest request)
+        {
+            try
+            {
+                var mapRequest = new MapperConfiguration(cfg => cfg.CreateMap<GetUserByIdRequest, User>());
+                var mapResponse = new MapperConfiguration(cfg => cfg.CreateMap<User, GetUserByIdResponse>());
+
+                IMapper requestMap = mapRequest.CreateMapper();
+                IMapper responseMap = mapResponse.CreateMapper();
+
+                var destination = requestMap.Map<GetUserByIdRequest, User>(request);
+                User userToGet = unitOfWork.Users.GetByIdNumber(destination);
+                var result = responseMap.Map<User, GetUserByIdResponse>(userToGet);
+
+                await unitOfWork.CompleteAsync();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
                 throw new Exception($"Could not create record | {errorMessage}");
 
             }
+
         }
 
     }

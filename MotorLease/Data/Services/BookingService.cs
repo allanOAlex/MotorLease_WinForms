@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MotorLease.Data.Dtos;
 using MotorLease.Data.Dtos.Forms;
@@ -91,9 +92,9 @@ namespace MotorLease.Data.Services
             return null;
         }
 
-        public Booking CancelBooking(Booking entity)
+        public List<BookingGridResponse> GetAdminBookings()
         {
-            var response = unitOfWork.Bookings.CancelBooking(entity);
+            var response = unitOfWork.Bookings.GetAdminBookings();
             if (response != null)
             {
                 return response;
@@ -102,10 +103,23 @@ namespace MotorLease.Data.Services
             return null;
         }
 
+        public int CancelBooking(int bookingId, int carModelId)
+        {
+            var response = unitOfWork.Bookings.CancelBooking(bookingId, carModelId);
+            if (response > 0)
+            {
+                return response;
+            }
+
+            return 0;
+        }
+        
+
         public async Task<BookingGridResponse> EditBooking(BookingGridRequest entity)
         {
             try
             {
+                entity.UpdatedBy = entity.Id;
                 var request = new MapperConfiguration(cfg => cfg.CreateMap<BookingGridRequest, Booking>());
                 var response = new MapperConfiguration(cfg => cfg.CreateMap<Booking, BookingGridResponse>());
 
@@ -118,12 +132,55 @@ namespace MotorLease.Data.Services
 
 
                 var destination = requestMap.Map<BookingGridRequest, Booking>(entity);
+                //Booking bookingToEdit = unitOfWork.Bookings.EditBooking(destination);
                 Booking bookingToEdit = unitOfWork.Bookings.EditBooking(destination);
                 var result = responseMap.Map<Booking, BookingGridResponse>(bookingToEdit);
+                if (result != null)
+                {
+                    var saved = false;
+                    while (!saved)
+                    {
+                        try
+                        {
+                            // Attempt to save changes to the database
+                            await unitOfWork.CompleteAsync();
+                            saved = true;
+                        }
+                        catch (DbUpdateConcurrencyException ex)
+                        {
+                            foreach (var entry in ex.Entries)
+                            {
+                                if (entry.Entity is Booking)
+                                {
+                                    var proposedValues = entry.CurrentValues;
+                                    var databaseValues = entry.GetDatabaseValues();
 
-                //await unitOfWork.CompleteAsync();
+                                    foreach (var property in proposedValues.Properties)
+                                    {
+                                        var proposedValue = proposedValues[property];
+                                        //var databaseValue = databaseValues[property];
 
-                return result;
+                                        // TODO: decide which value should be written to database
+                                        //proposedValues[property] = <ValueTask to be added to db>
+                                    }
+
+                                    // Refresh original values to bypass next concurrency check
+                                    entry.OriginalValues.SetValues(databaseValues);
+                                }
+                                else
+                                {
+                                    throw new NotSupportedException(
+                                        "Don't know how to handle concurrency conflicts for "
+                                        + entry.Metadata.Name);
+                                }
+                            }
+                        }
+                    }
+
+                    return result;
+                }
+                
+                return null;
             }
             catch (Exception ex)
             {
@@ -131,5 +188,39 @@ namespace MotorLease.Data.Services
 
             }
         }
+
+        public async Task<BookingGridResponse> UpdateBooking(BookingGridRequest entity)
+        {
+            try
+            {
+                entity.UpdatedBy = ApplicationInfo.UserId;
+
+                //Map the Dto (BookingGridResponse) to the Class (Booking)
+                
+                var request = new MapperConfiguration(cfg => cfg.CreateMap<BookingGridRequest, Booking>());
+                var response = new MapperConfiguration(cfg => cfg.CreateMap<Booking, BookingGridResponse>());
+
+                IMapper requestMap = request.CreateMapper();
+                IMapper responseMap = response.CreateMapper();
+
+                var destination = requestMap.Map<BookingGridRequest, Booking>(entity);
+                Booking bookingToEdit = unitOfWork.Bookings.UpdateBooking(destination);
+                var result = responseMap.Map<Booking, BookingGridResponse>(bookingToEdit);
+                if (result != null)
+                {
+                    await unitOfWork.CompleteAsync();
+
+                    return result;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Could not create record | {ex.Message}");
+
+            }
+        }
+
     }
 }

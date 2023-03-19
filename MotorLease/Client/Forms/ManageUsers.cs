@@ -3,6 +3,7 @@ using MotorLease.Data.Dtos;
 using MotorLease.Data.Dtos.Forms;
 using MotorLease.Domain.Models;
 using MotorLease.Domain.Services;
+using MotorLease.Methods;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace MotorLease.Client.Forms
 {
     public partial class ManageUsers : Form
     {
+        FormClosingEventArgs formClosingEventArgs;
+
         public static string Message { get; set; }
         private readonly IUserService userService;
 
@@ -31,7 +34,11 @@ namespace MotorLease.Client.Forms
 
         private void ManageUsers_Load(object sender, EventArgs e)
         {
-            lblLanding.Text = Message;
+            Form home = new Home();
+            ApplicationInfo.CurrentForm = this;
+            ApplicationInfo.PreviousForm = home;
+
+            lblMangeUsers.Text = Message;
             LoadUsers();
         }
 
@@ -72,13 +79,7 @@ namespace MotorLease.Client.Forms
 
             DefineLandingFormDataGrid(dataGridAllUsers);
             dataGridAllUsers.DataSource = gridUsers;
-            AddExtraColumnsManageBookingsFormGrid(dataGridAllUsers);
-        }
-
-        private void btnCreateUser_Click(object sender, EventArgs e)
-        {
-            Form register = new CreateUser();
-            register.Show();
+            //AddExtraColumnsManageBookingsFormGrid(dataGridAllUsers);
         }
 
         public DataGridView DefineLandingFormDataGrid(DataGridView dataGridView)
@@ -134,5 +135,32 @@ namespace MotorLease.Client.Forms
             return column;
         }
 
+        private void GoBack(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AppExtension.GoBack(ApplicationInfo.CurrentForm, ApplicationInfo.PreviousForm);
+
+        }
+
+        private void Logout(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //AppExtension.Logout(sender, formClosingEventArgs);
+            AppExtension.Logout();
+        }
+
+        private void Filter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CreateNewUser(object sender, EventArgs e)
+        {
+            Form register = new CreateUser();
+            register.Show();
+        }
+
+        private void dataGridAllUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

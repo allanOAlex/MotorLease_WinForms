@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32929.386
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorLease", "MotorLease\MotorLease.csproj", "{379B70B1-E319-477E-BBFB-A8C234D45114}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorLease", "MotorLease\MotorLease.csproj", "{379B70B1-E319-477E-BBFB-A8C234D45114}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorLease.Tests", "..\Tests\MotorLease.Tests\MotorLease.Tests.csproj", "{D2C7DD35-099D-47DC-B58D-F6B6C809EA97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{379B70B1-E319-477E-BBFB-A8C234D45114}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{379B70B1-E319-477E-BBFB-A8C234D45114}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{379B70B1-E319-477E-BBFB-A8C234D45114}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2C7DD35-099D-47DC-B58D-F6B6C809EA97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C7DD35-099D-47DC-B58D-F6B6C809EA97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C7DD35-099D-47DC-B58D-F6B6C809EA97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C7DD35-099D-47DC-B58D-F6B6C809EA97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

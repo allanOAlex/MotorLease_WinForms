@@ -18,5 +18,6 @@ namespace MotorLease.Domain.Services
         void UpdateUser(User user);
 
         Task<LoginResponse> ValidateUser(LoginRequest loginRequest);
+        Task<GetUserByIdResponse> GetUserByIdNumber(GetUserByIdRequest request);
     }
 }

@@ -29,44 +29,22 @@ namespace MotorLease.Client.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Label lblWelcome;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.linkLabelLogout = new System.Windows.Forms.LinkLabel();
             this.dataGridAllBookings = new System.Windows.Forms.DataGridView();
-            this.btnCreateBooking = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelFooterManageCars = new System.Windows.Forms.Panel();
             this.panelLanding = new System.Windows.Forms.Panel();
+            this.btnCreateNewBooking = new System.Windows.Forms.Button();
+            this.dateTimePickerManageBookingsTo = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerManageBookingsFrom = new System.Windows.Forms.DateTimePicker();
+            this.btnHomeFilter = new System.Windows.Forms.Button();
+            this.labelManageBookingsTo = new System.Windows.Forms.Label();
+            this.labelManageBookingsFrom = new System.Windows.Forms.Label();
             this.lblLanding = new System.Windows.Forms.Label();
-            lblWelcome = new System.Windows.Forms.Label();
+            this.linkLabelManageBookingsLogout = new System.Windows.Forms.LinkLabel();
+            this.linkLabelManageBookingsGoBack = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAllBookings)).BeginInit();
             this.panelLanding.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lblWelcome
-            // 
-            lblWelcome.AutoSize = true;
-            lblWelcome.BackColor = System.Drawing.Color.SlateGray;
-            lblWelcome.Font = new System.Drawing.Font("Segoe UI", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            lblWelcome.ForeColor = System.Drawing.SystemColors.ControlLight;
-            lblWelcome.Location = new System.Drawing.Point(12, 12);
-            lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new System.Drawing.Size(126, 19);
-            lblWelcome.TabIndex = 15;
-            lblWelcome.Text = "Welcome Message";
-            // 
-            // linkLabelLogout
-            // 
-            this.linkLabelLogout.AutoSize = true;
-            this.linkLabelLogout.BackColor = System.Drawing.Color.SlateGray;
-            this.linkLabelLogout.Font = new System.Drawing.Font("Constantia", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.linkLabelLogout.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.linkLabelLogout.LinkColor = System.Drawing.SystemColors.ControlLight;
-            this.linkLabelLogout.Location = new System.Drawing.Point(996, 12);
-            this.linkLabelLogout.Name = "linkLabelLogout";
-            this.linkLabelLogout.Size = new System.Drawing.Size(62, 19);
-            this.linkLabelLogout.TabIndex = 16;
-            this.linkLabelLogout.TabStop = true;
-            this.linkLabelLogout.Text = "Logout";
             // 
             // dataGridAllBookings
             // 
@@ -84,83 +62,175 @@ namespace MotorLease.Client.Forms
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridAllBookings.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridAllBookings.RowTemplate.Height = 25;
-            this.dataGridAllBookings.Size = new System.Drawing.Size(1067, 420);
+            this.dataGridAllBookings.Size = new System.Drawing.Size(882, 420);
             this.dataGridAllBookings.TabIndex = 11;
+            this.dataGridAllBookings.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridAllBookings_CellClick);
             // 
-            // btnCreateBooking
+            // panelFooterManageCars
             // 
-            this.btnCreateBooking.BackColor = System.Drawing.Color.SlateGray;
-            this.btnCreateBooking.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
-            this.btnCreateBooking.FlatAppearance.BorderSize = 0;
-            this.btnCreateBooking.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCreateBooking.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.btnCreateBooking.Location = new System.Drawing.Point(3, 21);
-            this.btnCreateBooking.Name = "btnCreateBooking";
-            this.btnCreateBooking.Size = new System.Drawing.Size(124, 27);
-            this.btnCreateBooking.TabIndex = 5;
-            this.btnCreateBooking.Text = "Create New";
-            this.btnCreateBooking.UseVisualStyleBackColor = false;
-            this.btnCreateBooking.Click += new System.EventHandler(this.btnCreateBooking_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.panel2.Location = new System.Drawing.Point(0, 519);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1067, 26);
-            this.panel2.TabIndex = 14;
+            this.panelFooterManageCars.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panelFooterManageCars.Location = new System.Drawing.Point(0, 519);
+            this.panelFooterManageCars.Name = "panelFooterManageCars";
+            this.panelFooterManageCars.Size = new System.Drawing.Size(882, 26);
+            this.panelFooterManageCars.TabIndex = 14;
             // 
             // panelLanding
             // 
             this.panelLanding.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.panelLanding.Controls.Add(this.btnCreateBooking);
+            this.panelLanding.Controls.Add(this.btnCreateNewBooking);
+            this.panelLanding.Controls.Add(this.dateTimePickerManageBookingsTo);
+            this.panelLanding.Controls.Add(this.dateTimePickerManageBookingsFrom);
+            this.panelLanding.Controls.Add(this.btnHomeFilter);
+            this.panelLanding.Controls.Add(this.labelManageBookingsTo);
+            this.panelLanding.Controls.Add(this.labelManageBookingsFrom);
             this.panelLanding.Location = new System.Drawing.Point(0, 45);
             this.panelLanding.Name = "panelLanding";
-            this.panelLanding.Size = new System.Drawing.Size(1067, 52);
+            this.panelLanding.Size = new System.Drawing.Size(882, 52);
             this.panelLanding.TabIndex = 13;
+            // 
+            // btnCreateNewBooking
+            // 
+            this.btnCreateNewBooking.BackColor = System.Drawing.Color.SlateGray;
+            this.btnCreateNewBooking.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.btnCreateNewBooking.FlatAppearance.BorderSize = 0;
+            this.btnCreateNewBooking.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCreateNewBooking.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.btnCreateNewBooking.Location = new System.Drawing.Point(12, 22);
+            this.btnCreateNewBooking.Name = "btnCreateNewBooking";
+            this.btnCreateNewBooking.Size = new System.Drawing.Size(89, 27);
+            this.btnCreateNewBooking.TabIndex = 27;
+            this.btnCreateNewBooking.Text = "Create New";
+            this.btnCreateNewBooking.UseVisualStyleBackColor = false;
+            this.btnCreateNewBooking.Click += new System.EventHandler(this.CreateNewBooking);
+            // 
+            // dateTimePickerManageBookingsTo
+            // 
+            this.dateTimePickerManageBookingsTo.Location = new System.Drawing.Point(617, 26);
+            this.dateTimePickerManageBookingsTo.Name = "dateTimePickerManageBookingsTo";
+            this.dateTimePickerManageBookingsTo.Size = new System.Drawing.Size(200, 23);
+            this.dateTimePickerManageBookingsTo.TabIndex = 25;
+            // 
+            // dateTimePickerManageBookingsFrom
+            // 
+            this.dateTimePickerManageBookingsFrom.Location = new System.Drawing.Point(411, 26);
+            this.dateTimePickerManageBookingsFrom.Name = "dateTimePickerManageBookingsFrom";
+            this.dateTimePickerManageBookingsFrom.Size = new System.Drawing.Size(200, 23);
+            this.dateTimePickerManageBookingsFrom.TabIndex = 24;
+            // 
+            // btnHomeFilter
+            // 
+            this.btnHomeFilter.BackColor = System.Drawing.Color.SlateGray;
+            this.btnHomeFilter.FlatAppearance.BorderColor = System.Drawing.Color.LightSteelBlue;
+            this.btnHomeFilter.FlatAppearance.BorderSize = 0;
+            this.btnHomeFilter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnHomeFilter.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.btnHomeFilter.Location = new System.Drawing.Point(823, 27);
+            this.btnHomeFilter.Name = "btnHomeFilter";
+            this.btnHomeFilter.Size = new System.Drawing.Size(54, 22);
+            this.btnHomeFilter.TabIndex = 23;
+            this.btnHomeFilter.Text = "Filter";
+            this.btnHomeFilter.UseVisualStyleBackColor = false;
+            this.btnHomeFilter.Click += new System.EventHandler(this.Filter);
+            // 
+            // labelManageBookingsTo
+            // 
+            this.labelManageBookingsTo.AutoSize = true;
+            this.labelManageBookingsTo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelManageBookingsTo.Location = new System.Drawing.Point(617, 4);
+            this.labelManageBookingsTo.Name = "labelManageBookingsTo";
+            this.labelManageBookingsTo.Size = new System.Drawing.Size(29, 19);
+            this.labelManageBookingsTo.TabIndex = 22;
+            this.labelManageBookingsTo.Text = "To:";
+            // 
+            // labelManageBookingsFrom
+            // 
+            this.labelManageBookingsFrom.AutoSize = true;
+            this.labelManageBookingsFrom.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelManageBookingsFrom.Location = new System.Drawing.Point(411, 4);
+            this.labelManageBookingsFrom.Name = "labelManageBookingsFrom";
+            this.labelManageBookingsFrom.Size = new System.Drawing.Size(48, 19);
+            this.labelManageBookingsFrom.TabIndex = 21;
+            this.labelManageBookingsFrom.Text = "From:";
             // 
             // lblLanding
             // 
-            this.lblLanding.BackColor = System.Drawing.Color.SlateGray;
+            this.lblLanding.BackColor = System.Drawing.Color.SteelBlue;
             this.lblLanding.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblLanding.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.lblLanding.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.lblLanding.Location = new System.Drawing.Point(0, 0);
             this.lblLanding.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.lblLanding.Name = "lblLanding";
-            this.lblLanding.Size = new System.Drawing.Size(1069, 42);
+            this.lblLanding.Size = new System.Drawing.Size(884, 42);
             this.lblLanding.TabIndex = 12;
-            this.lblLanding.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblLanding.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblLanding.UseWaitCursor = true;
+            // 
+            // linkLabelManageBookingsLogout
+            // 
+            this.linkLabelManageBookingsLogout.AutoSize = true;
+            this.linkLabelManageBookingsLogout.BackColor = System.Drawing.Color.SteelBlue;
+            this.linkLabelManageBookingsLogout.Font = new System.Drawing.Font("Constantia", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.linkLabelManageBookingsLogout.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.linkLabelManageBookingsLogout.LinkColor = System.Drawing.SystemColors.ControlLight;
+            this.linkLabelManageBookingsLogout.Location = new System.Drawing.Point(820, 11);
+            this.linkLabelManageBookingsLogout.Name = "linkLabelManageBookingsLogout";
+            this.linkLabelManageBookingsLogout.Size = new System.Drawing.Size(62, 19);
+            this.linkLabelManageBookingsLogout.TabIndex = 17;
+            this.linkLabelManageBookingsLogout.TabStop = true;
+            this.linkLabelManageBookingsLogout.Text = "Logout";
+            this.linkLabelManageBookingsLogout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Logout);
+            // 
+            // linkLabelManageBookingsGoBack
+            // 
+            this.linkLabelManageBookingsGoBack.AutoSize = true;
+            this.linkLabelManageBookingsGoBack.BackColor = System.Drawing.Color.SteelBlue;
+            this.linkLabelManageBookingsGoBack.Font = new System.Drawing.Font("Constantia", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.linkLabelManageBookingsGoBack.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.linkLabelManageBookingsGoBack.LinkColor = System.Drawing.Color.Gold;
+            this.linkLabelManageBookingsGoBack.Location = new System.Drawing.Point(12, 17);
+            this.linkLabelManageBookingsGoBack.Name = "linkLabelManageBookingsGoBack";
+            this.linkLabelManageBookingsGoBack.Size = new System.Drawing.Size(47, 13);
+            this.linkLabelManageBookingsGoBack.TabIndex = 18;
+            this.linkLabelManageBookingsGoBack.TabStop = true;
+            this.linkLabelManageBookingsGoBack.Text = "Go Back";
+            this.linkLabelManageBookingsGoBack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.GoBack);
             // 
             // ManageBookings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1069, 546);
-            this.Controls.Add(this.linkLabelLogout);
-            this.Controls.Add(lblWelcome);
+            this.ClientSize = new System.Drawing.Size(884, 546);
+            this.Controls.Add(this.linkLabelManageBookingsGoBack);
+            this.Controls.Add(this.linkLabelManageBookingsLogout);
             this.Controls.Add(this.dataGridAllBookings);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panelFooterManageCars);
             this.Controls.Add(this.panelLanding);
             this.Controls.Add(this.lblLanding);
             this.Name = "ManageBookings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageBookings";
             this.Load += new System.EventHandler(this.ManageBookings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAllBookings)).EndInit();
             this.panelLanding.ResumeLayout(false);
+            this.panelLanding.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.LinkLabel linkLabelLogout;
         private System.Windows.Forms.DataGridView dataGridAllBookings;
-        private System.Windows.Forms.Button btnCreateBooking;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelFooterManageCars;
         private System.Windows.Forms.Panel panelLanding;
         public System.Windows.Forms.Label lblLanding;
+        private System.Windows.Forms.LinkLabel linkLabelManageBookingsLogout;
+        private System.Windows.Forms.LinkLabel linkLabelManageBookingsGoBack;
+        private System.Windows.Forms.DateTimePicker dateTimePickerManageBookingsTo;
+        private System.Windows.Forms.DateTimePicker dateTimePickerManageBookingsFrom;
+        private System.Windows.Forms.Button btnHomeFilter;
+        private System.Windows.Forms.Label labelManageBookingsTo;
+        private System.Windows.Forms.Label labelManageBookingsFrom;
+        private System.Windows.Forms.Button btnCreateNewBooking;
     }
 }

@@ -48,6 +48,7 @@ namespace MotorLease.Client.Forms
             this.RegisterErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.txtUserRegIdNo = new System.Windows.Forms.TextBox();
             this.txtUserRegPhone = new System.Windows.Forms.TextBox();
+            this.buttonReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.RegisterErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -205,9 +206,9 @@ namespace MotorLease.Client.Forms
             this.btnUserRegRegister.BackColor = System.Drawing.Color.Silver;
             this.btnUserRegRegister.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.btnUserRegRegister.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnUserRegRegister.Location = new System.Drawing.Point(520, 370);
+            this.btnUserRegRegister.Location = new System.Drawing.Point(368, 370);
             this.btnUserRegRegister.Name = "btnUserRegRegister";
-            this.btnUserRegRegister.Size = new System.Drawing.Size(75, 45);
+            this.btnUserRegRegister.Size = new System.Drawing.Size(75, 36);
             this.btnUserRegRegister.TabIndex = 17;
             this.btnUserRegRegister.Text = "Register";
             this.btnUserRegRegister.UseVisualStyleBackColor = false;
@@ -219,9 +220,9 @@ namespace MotorLease.Client.Forms
             this.btnUserRegCancel.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnUserRegCancel.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.btnUserRegCancel.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
-            this.btnUserRegCancel.Location = new System.Drawing.Point(439, 370);
+            this.btnUserRegCancel.Location = new System.Drawing.Point(520, 370);
             this.btnUserRegCancel.Name = "btnUserRegCancel";
-            this.btnUserRegCancel.Size = new System.Drawing.Size(75, 45);
+            this.btnUserRegCancel.Size = new System.Drawing.Size(75, 36);
             this.btnUserRegCancel.TabIndex = 16;
             this.btnUserRegCancel.Text = "Cancel";
             this.btnUserRegCancel.UseVisualStyleBackColor = false;
@@ -246,11 +247,26 @@ namespace MotorLease.Client.Forms
             this.txtUserRegPhone.Size = new System.Drawing.Size(226, 23);
             this.txtUserRegPhone.TabIndex = 21;
             // 
-            // Register
+            // buttonReset
+            // 
+            this.buttonReset.BackColor = System.Drawing.Color.Silver;
+            this.buttonReset.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.buttonReset.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonReset.Location = new System.Drawing.Point(449, 370);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(65, 36);
+            this.buttonReset.TabIndex = 22;
+            this.buttonReset.Text = "Reset";
+            this.buttonReset.UseVisualStyleBackColor = false;
+            this.buttonReset.UseWaitCursor = true;
+            this.buttonReset.Click += new System.EventHandler(this.ResetForm);
+            // 
+            // CreateUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 556);
+            this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.txtUserRegPhone);
             this.Controls.Add(this.txtUserRegIdNo);
             this.Controls.Add(this.btnUserRegRegister);
@@ -269,7 +285,7 @@ namespace MotorLease.Client.Forms
             this.Controls.Add(this.lblUserRegUsername);
             this.Controls.Add(this.lblUserRegistration);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Name = "Register";
+            this.Name = "CreateUser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MotorLease";
             ((System.ComponentModel.ISupportInitialize)(this.RegisterErrorProvider)).EndInit();
@@ -298,5 +314,6 @@ namespace MotorLease.Client.Forms
         private System.Windows.Forms.ErrorProvider RegisterErrorProvider;
         private System.Windows.Forms.TextBox txtUserRegPhone;
         private System.Windows.Forms.TextBox txtUserRegIdNo;
+        private System.Windows.Forms.Button buttonReset;
     }
 }

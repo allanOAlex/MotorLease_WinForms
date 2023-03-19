@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MotorLease.Data.Context;
+using MotorLease.Data.Dtos.Models;
 using MotorLease.Domain.Interfaces;
 using MotorLease.Domain.IRepositories;
 using MotorLease.Domain.Models;
@@ -10,6 +11,7 @@ using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MotorLease.Data.Repositories
 {
@@ -30,7 +32,7 @@ namespace MotorLease.Data.Repositories
 
         public User CreateUser(User entity)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["MotorLease"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["LawiRides"].ConnectionString;
             string queryString = 
 
                 $"INSERT INTO [dbo].[Users]([Username],[Password],[FirstName],[LastName],[IdNumber],[PhoneNumber],[Address],[IsAdmin]) VALUES ('{entity.Username}', '{entity.Password}','{entity.FirstName}','{entity.LastName}',{entity.IdNumber},{entity.PhoneNumber},'{entity.Address}',{0}) ";
@@ -53,15 +55,17 @@ namespace MotorLease.Data.Repositories
 
         public User ValidateUser(User entity)
         {
-            User userToValidate = (from user in context.Users
-                                   where user.Username.Equals(entity.Username) &&
-                                   user.Password.Equals(entity.Password)
-                                   select user).FirstOrDefault();
-            if (userToValidate != null)
+            var users = context.Users.AsNoTracking();
+            if (users.Any())
             {
+                User userToValidate = (from user in context.Users
+                                       where user.Username.Equals(entity.Username) &&
+                                       user.Password.Equals(entity.Password)
+                                       select user).FirstOrDefault();
+
                 return userToValidate;
             }
-
+            
             return null;
         }
 
@@ -89,6 +93,17 @@ namespace MotorLease.Data.Repositories
         {
             context.Update(entity);
             return entity;
+        }
+
+        public User GetByIdNumber(User entity)
+        {
+            var user = context.Users.Where(u=> u.IdNumber == entity.IdNumber).AsNoTracking().FirstOrDefault();
+            return user;
+        }
+
+        public async Task<User> GetUserByIdNumber(User request)
+        {
+            return await FindByCondition(user => user.Id.Equals(request.IdNumber)).FirstOrDefaultAsync();
         }
     }
 }

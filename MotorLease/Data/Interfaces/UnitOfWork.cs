@@ -14,7 +14,8 @@ namespace MotorLease.Data.Interfaces
         private readonly DBContext context;
         public IUserRepository Users { get; private set; }
         public IBookingRepository Bookings { get; private set; }
-        public ICarRepository Motors { get; private set; }
+        public ICarRepository Cars { get; private set; }
+        public IReviewRepository Reviews { get; private set; }
 
         public UnitOfWork(DBContext Context)
         {
@@ -22,7 +23,8 @@ namespace MotorLease.Data.Interfaces
 
             Users = new UserRepository(context);
             Bookings = new BookingRepository(context);
-            Motors = new CarRepository(context);
+            Cars = new CarRepository(context);
+            Reviews = new ReviewRepository(context);
         }
 
         public UnitOfWork()
@@ -30,6 +32,7 @@ namespace MotorLease.Data.Interfaces
 
         }
 
+        //This method saves/ updates data to the DB
         public Task CompleteAsync()
         {
             return context.SaveChangesAsync();

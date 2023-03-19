@@ -10,9 +10,9 @@ namespace MotorLease.Data.Dtos.Models
 
         public string LastName { get; set; }
 
-        public int IdNumber { get; set; }
+        public string IdNumber { get; set; }
 
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         public string Address { get; set; }
     }

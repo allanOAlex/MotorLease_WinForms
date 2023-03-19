@@ -29,30 +29,31 @@ namespace MotorLease.Client.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridViewBookings = new System.Windows.Forms.DataGridView();
+            this.dataGridViewMyBookings = new System.Windows.Forms.DataGridView();
             this.panelLanding = new System.Windows.Forms.Panel();
+            this.btnUserBookingsSearch = new System.Windows.Forms.Button();
             this.lblFilterTo = new System.Windows.Forms.Label();
             this.lblFilterFrom = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.lblLanding = new System.Windows.Forms.Label();
-            this.linkLabelLogout = new System.Windows.Forms.LinkLabel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnUserBookingsSearch = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBookings)).BeginInit();
+            this.linkLabelLogout = new System.Windows.Forms.LinkLabel();
+            this.linkLabelManageUsersBack = new System.Windows.Forms.LinkLabel();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMyBookings)).BeginInit();
             this.panelLanding.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridViewBookings
+            // dataGridViewMyBookings
             // 
-            this.dataGridViewBookings.BackgroundColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewBookings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewBookings.Location = new System.Drawing.Point(2, 101);
-            this.dataGridViewBookings.Name = "dataGridViewBookings";
-            this.dataGridViewBookings.RowTemplate.Height = 25;
-            this.dataGridViewBookings.Size = new System.Drawing.Size(1075, 404);
-            this.dataGridViewBookings.TabIndex = 8;
-            this.dataGridViewBookings.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBookings_CellClick);
+            this.dataGridViewMyBookings.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridViewMyBookings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewMyBookings.Location = new System.Drawing.Point(2, 101);
+            this.dataGridViewMyBookings.Name = "dataGridViewMyBookings";
+            this.dataGridViewMyBookings.RowTemplate.Height = 25;
+            this.dataGridViewMyBookings.Size = new System.Drawing.Size(1174, 412);
+            this.dataGridViewMyBookings.TabIndex = 8;
+            this.dataGridViewMyBookings.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBookings_CellClick);
             // 
             // panelLanding
             // 
@@ -64,8 +65,21 @@ namespace MotorLease.Client.Forms
             this.panelLanding.Controls.Add(this.dateTimePicker1);
             this.panelLanding.Location = new System.Drawing.Point(2, 47);
             this.panelLanding.Name = "panelLanding";
-            this.panelLanding.Size = new System.Drawing.Size(1075, 52);
+            this.panelLanding.Size = new System.Drawing.Size(1174, 52);
             this.panelLanding.TabIndex = 10;
+            // 
+            // btnUserBookingsSearch
+            // 
+            this.btnUserBookingsSearch.BackColor = System.Drawing.Color.SlateGray;
+            this.btnUserBookingsSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnUserBookingsSearch.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.btnUserBookingsSearch.Location = new System.Drawing.Point(469, 23);
+            this.btnUserBookingsSearch.Name = "btnUserBookingsSearch";
+            this.btnUserBookingsSearch.Size = new System.Drawing.Size(58, 25);
+            this.btnUserBookingsSearch.TabIndex = 14;
+            this.btnUserBookingsSearch.Text = "Filter";
+            this.btnUserBookingsSearch.UseVisualStyleBackColor = false;
+            this.btnUserBookingsSearch.Click += new System.EventHandler(this.Filter);
             // 
             // lblFilterTo
             // 
@@ -107,66 +121,73 @@ namespace MotorLease.Client.Forms
             // 
             // lblLanding
             // 
-            this.lblLanding.BackColor = System.Drawing.Color.SlateGray;
+            this.lblLanding.BackColor = System.Drawing.Color.SteelBlue;
             this.lblLanding.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblLanding.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.lblLanding.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.lblLanding.Location = new System.Drawing.Point(0, 0);
             this.lblLanding.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.lblLanding.Name = "lblLanding";
-            this.lblLanding.Size = new System.Drawing.Size(1078, 42);
+            this.lblLanding.Size = new System.Drawing.Size(1176, 42);
             this.lblLanding.TabIndex = 9;
             this.lblLanding.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblLanding.UseWaitCursor = true;
-            // 
-            // linkLabelLogout
-            // 
-            this.linkLabelLogout.AutoSize = true;
-            this.linkLabelLogout.BackColor = System.Drawing.Color.SlateGray;
-            this.linkLabelLogout.Font = new System.Drawing.Font("Constantia", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.linkLabelLogout.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.linkLabelLogout.LinkColor = System.Drawing.SystemColors.ControlLight;
-            this.linkLabelLogout.Location = new System.Drawing.Point(996, 12);
-            this.linkLabelLogout.Name = "linkLabelLogout";
-            this.linkLabelLogout.Size = new System.Drawing.Size(62, 19);
-            this.linkLabelLogout.TabIndex = 12;
-            this.linkLabelLogout.TabStop = true;
-            this.linkLabelLogout.Text = "Logout";
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel2.Location = new System.Drawing.Point(1, 511);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1076, 26);
+            this.panel2.Size = new System.Drawing.Size(1175, 26);
             this.panel2.TabIndex = 13;
             // 
-            // btnUserBookingsSearch
+            // linkLabelLogout
             // 
-            this.btnUserBookingsSearch.BackColor = System.Drawing.Color.SlateGray;
-            this.btnUserBookingsSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnUserBookingsSearch.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.btnUserBookingsSearch.Location = new System.Drawing.Point(469, 23);
-            this.btnUserBookingsSearch.Name = "btnUserBookingsSearch";
-            this.btnUserBookingsSearch.Size = new System.Drawing.Size(75, 25);
-            this.btnUserBookingsSearch.TabIndex = 14;
-            this.btnUserBookingsSearch.Text = "Search";
-            this.btnUserBookingsSearch.UseVisualStyleBackColor = false;
+            this.linkLabelLogout.AutoSize = true;
+            this.linkLabelLogout.BackColor = System.Drawing.Color.SteelBlue;
+            this.linkLabelLogout.Font = new System.Drawing.Font("Constantia", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.linkLabelLogout.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.linkLabelLogout.LinkColor = System.Drawing.SystemColors.ControlLight;
+            this.linkLabelLogout.Location = new System.Drawing.Point(1102, 11);
+            this.linkLabelLogout.Name = "linkLabelLogout";
+            this.linkLabelLogout.Size = new System.Drawing.Size(62, 19);
+            this.linkLabelLogout.TabIndex = 14;
+            this.linkLabelLogout.TabStop = true;
+            this.linkLabelLogout.Text = "Logout";
+            this.linkLabelLogout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Logout);
+            // 
+            // linkLabelManageUsersBack
+            // 
+            this.linkLabelManageUsersBack.AutoSize = true;
+            this.linkLabelManageUsersBack.BackColor = System.Drawing.Color.SteelBlue;
+            this.linkLabelManageUsersBack.Font = new System.Drawing.Font("Constantia", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.linkLabelManageUsersBack.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.linkLabelManageUsersBack.LinkColor = System.Drawing.Color.Gold;
+            this.linkLabelManageUsersBack.Location = new System.Drawing.Point(5, 16);
+            this.linkLabelManageUsersBack.Name = "linkLabelManageUsersBack";
+            this.linkLabelManageUsersBack.Size = new System.Drawing.Size(47, 13);
+            this.linkLabelManageUsersBack.TabIndex = 19;
+            this.linkLabelManageUsersBack.TabStop = true;
+            this.linkLabelManageUsersBack.Text = "Go Back";
+            this.linkLabelManageUsersBack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.GoBack);
             // 
             // MyBookings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1078, 536);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(1176, 536);
+            this.Controls.Add(this.linkLabelManageUsersBack);
             this.Controls.Add(this.linkLabelLogout);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelLanding);
             this.Controls.Add(this.lblLanding);
-            this.Controls.Add(this.dataGridViewBookings);
+            this.Controls.Add(this.dataGridViewMyBookings);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Name = "MyBookings";
-            this.Text = "MyBookings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "My Bookings";
             this.Load += new System.EventHandler(this.MyBookings_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBookings)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMyBookings)).EndInit();
             this.panelLanding.ResumeLayout(false);
             this.panelLanding.PerformLayout();
             this.ResumeLayout(false);
@@ -176,15 +197,16 @@ namespace MotorLease.Client.Forms
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridViewBookings;
+        private System.Windows.Forms.DataGridView dataGridViewMyBookings;
         private System.Windows.Forms.Panel panelLanding;
         private System.Windows.Forms.Label lblFilterTo;
         private System.Windows.Forms.Label lblFilterFrom;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         public System.Windows.Forms.Label lblLanding;
-        private System.Windows.Forms.LinkLabel linkLabelLogout;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnUserBookingsSearch;
+        private System.Windows.Forms.LinkLabel linkLabelLogout;
+        private System.Windows.Forms.LinkLabel linkLabelManageUsersBack;
     }
 }

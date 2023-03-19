@@ -6,5 +6,9 @@ namespace MotorLease.Data.Dtos.Models
 {
     public class CancelBookingResponse
     {
+        public int Id { get; set; }
+        public int BookingId { get; set; }
+        public int UserId { get; set; }
+        public string Comments { get; set; }
     }
 }

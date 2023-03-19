@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MotorLease.Domain.Models;
+using MotorLease.Methods;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,9 +22,19 @@ namespace MotorLease.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["MotorLease"].ConnectionString);
+            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["LawiRides"].ConnectionString);
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+        }
+
+        //internal static int GetKey(Booking entity)
+        //{
+        //    return AppExtension.GetKey(DBContext, entity);
+        //}
 
         public DbSet<CarMake> CarMakes { get; set; }
         public DbSet<CarModel> CarModels { get; set; }

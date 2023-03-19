@@ -16,14 +16,32 @@ namespace MotorLease.Domain.Models
 
         [Key]
         public int Id { get; set; }
-        public User User { get; set; }
-        public CarModel CarModel { get; set; }
+
+        [ConcurrencyCheck]
+        public int UserId { get; set; }
+
+        [ConcurrencyCheck]
+        public int CarModelId { get; set; }
+
+        [ConcurrencyCheck]
         public decimal UnitPrice { get; set; }
+
+        [ConcurrencyCheck]
         public decimal TotalPrice { get; set; }
+
+        [ConcurrencyCheck]
         public DateTime BookingDate { get; set; }
+
+        [ConcurrencyCheck]
         public int CreatedBy { get; set; }
+
+        [ConcurrencyCheck]
         public DateTime DateFrom { get; set; }
+
+        [ConcurrencyCheck]
         public DateTime DateTo { get; set; }
+
+        [ConcurrencyCheck]
         public int UpdatedBy { get; set; }
 
         [DefaultValue(false)]
@@ -40,9 +58,18 @@ namespace MotorLease.Domain.Models
         [NotMapped]
         public string ImageString { get; set; }
 
-        
-        
+        [NotMapped]
+        public User User { get; set; }
+
+
+        [NotMapped]
+        public CarModel CarModel { get; set; }
+
+
+        [NotMapped]
         public virtual ICollection<User> Users { get; set; } = new HashSet<User>();
+
+        [NotMapped]
         public virtual ICollection<CarModel> CarModels { get; set; } = new HashSet<CarModel>();
 
 
